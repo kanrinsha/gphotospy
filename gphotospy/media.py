@@ -802,8 +802,11 @@ class Media:
                 body=request_body).execute()
             page_token = result.get("nextPageToken", None)
             curr_list = result.get("mediaItems")
-            for media in curr_list:
-                yield media
+            if curr_list is not None:
+                for media in curr_list:
+                    yield media
+            else:
+                yield None
 
     def search(self, filter, exclude=None):
         """
